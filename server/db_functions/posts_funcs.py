@@ -27,7 +27,7 @@ def get_posts_from_db():
     return json_posts
 
 
-def add_post(title: str, text: str):
+def add_post_to_db(title: str, text: str):
     new_post = Post(title=title, text=text)
     with DBSession() as session:
         session.add(new_post)
