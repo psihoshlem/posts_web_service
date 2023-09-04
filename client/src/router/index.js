@@ -20,6 +20,11 @@ const routes = [
     name: 'posts',
     component: () => import('../views/PostsView.vue')
   },
+  {
+    path: '/add_post',
+    name: 'add_post',
+    component: () => import('../views/AddPostView.vue')
+  },
 ]
 
 const router = createRouter({
