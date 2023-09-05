@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 
 from db_functions.db_models import Post
@@ -14,7 +14,7 @@ DBSession = sessionmaker(bind=engine)
 
 def get_posts_from_db():
     with DBSession() as session:
-        posts = session.query(Post).all()
+        posts = session.query(Post).order_by(desc(Post.created_at)).all()
     json_posts = []
     for post in posts:
         json_posts.append(
