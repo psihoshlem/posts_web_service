@@ -19,6 +19,7 @@ def get_posts_from_db():
     for post in posts:
         json_posts.append(
             {
+                "id": post.id,
                 "title": post.title,
                 "text": post.text,
                 "date": get_str_date(post.created_at)
@@ -33,5 +34,17 @@ def add_post_to_db(title: str, text: str):
         session.add(new_post)
         session.commit()
 
-if __name__=="__main__":
-    print(get_posts_from_db())
+
+def delete_post_db(id):
+    with DBSession() as session:
+        post = session.query(Post).filter_by(id=id).first()
+        session.delete(post)
+        session.commit()
+
+
+def edit_post_db(id, post):
+    with DBSession() as session:
+        post_to_update = session.query(Post).filter_by(id=id).first()
+        post_to_update.title = post.title
+        post_to_update.text = post.text
+        session.commit()
